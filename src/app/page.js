@@ -1,101 +1,77 @@
-import Image from "next/image";
+'use client'
+import RightArrow from "@/icon/right-arrow";
+import Header from "@/components/header";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // const [firstNameValue, setFirstNameValue] = useState("")
+  // const [lastNameValue, setLastNameValue] = useState("")
+  const [errors, setErrors] = useState({})
+  const [formValue, setFromValue] = useState({})
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  function firstNameChange(e) {
+    setFromValue({ ...formValue, firstName: e.target.value })
+    // console.log(`first name value: ${formValue.firstName}`)
+  }
+
+  function lastNameChange(e) {
+    setFromValue({ ...formValue, lastName: e.target.value })
+    // console.log(`last name value: ${formValue.lastName}`)
+  }
+
+  function userNameChange(e) {
+    setFromValue({ ...formValue, userName: e.target.value })
+  }
+
+  // console.log(formValue)
+
+  function inputChecker() {
+    const minValue = 1
+
+    if (!formValue.firstName || formValue.firstName.length < minValue) {
+      setErrors((prev) => ({ ...prev, firstName: "Нэрээ оруулна уу !" }))
+    }
+    if (!formValue.lastName || formValue.lastName.length < minValue) {
+      setErrors((prev) => ({ ...prev, lastName: "Овгоо оруулна уу!" }))
+    }
+    if (!formValue.userName || formValue.userName.length < minValue) {
+      setErrors((prev) => ({ ...prev, userName: "Хэрэглэгчийн нэрээ оруулна уу!" }))
+    }
+  }
+  console.log(errors)
+
+  return (
+    <div className="w-screen h-screen flex justify-center items-center bg-[whitesmoke]">
+      <div className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
+        {/* form  */}
+        <div className="flex flex-col gap-[40px]">
+          <Header />
+          <div className="flex flex-col gap-[10px]">
+            <div className="flex flex-col gap-[5px]">
+              <label>First name *</label>
+              <input id="firstNameInput" onChange={firstNameChange} className="border w-[100%] h-[40px] rounded-lg" placeholder="First name" />
+              {errors.firstName && <p className="text-[red]">{errors.firstName}</p>}
+            </div>
+            <div className="flex flex-col gap-[5px]">
+              <b>Last name *</b>
+              <input onChange={lastNameChange} className="border w-[100%] h-[40px] rounded-lg" placeholder="Last name" />
+              {errors.lastName && <p className="text-[red]">{errors.lastName}</p>}
+            </div>
+            <div className="flex flex-col gap-[5px]">
+              <b>User name *</b>
+              <input onChange={userNameChange} className="border w-[100%] h-[40px] rounded-lg" placeholder="User name" />
+              {errors.userName && <p className="text-[red]">{errors.userName}</p>}
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* continue */}
+        <div >
+          <button onClick={inputChecker} className="w-[100%] bg-[black] text-[white] flex h-[40px] justify-center items-center rounded-lg">
+            Continue 1/3 <RightArrow />
+          </button>
+        </div>
+      </div>
+
     </div>
   );
 }
