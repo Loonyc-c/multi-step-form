@@ -1,33 +1,58 @@
-'use client'
 import Header from "./header";
 import RightArrow from "@/icon/right-arrow";
 import { useState } from "react";
 export default function StepThree({ setStep }) {
 
-    const [formValue, setFormValue] = useState({})
+    const [formValue, setFormValue] = useState({
+        dateBirth: "",
+        profilePicture: null
+    })
     const [errors, setErrors] = useState({})
+    
 
     const dateBirthChange = (e) => {
         setFormValue({ ...formValue, dateBirth: e.target.value })
     }
 
+    const imageChange = (e) => {
+        setFormValue({ ...formValue, profilePicture: e.target.files[0] })
+    }
+
+
     const inputChecker = () => {
         const newErrors = {}
-        if (!dateBirth) {
-            newErrors.dateBirth = "Төрсөн огноо оруулна уу!";
-        } 
+        const currentDate = new Date()
+        const selectedDate = new Date(formValue.dateBirth)
+        const age = currentDate.getFullYear() - selectedDate.getFullYear()
+        // const monthDiff = currentDate.getMonth() - selectedDate.getMonth()
+        // const dayDiff = currentDate.getDate() - selectedDate.getDate()
+        // console.log(currentDate)
+        // console.log(selectedDate)
+        // console.log(formValue.dateBirth, age)
+        // console.log(monthDiff)
+        // console.log(dayDiff)
 
-        // else if (new Date(dateBirth) >= new Date("2021-01-01")) {
-        //     newErrors.dateBirth = "Төрсөн огноо 2021 оноос өмнө байх ёстой!";
-        // }
+        if (!formValue.dateBirth) {
+            newErrors.dateBirth = "Төрсөн огноо оруулна уу!";
+        } else if (age <= 18) {
+            newErrors.dateBirth = "Та 18 ба түүнээс дээш настай байх ёстой !";
+        }
+
+        if (!formValue.profilePicture) {
+            newErrors.profilePicture = "Профайл зурагаа оруулна уу !"
+        }
+
         setErrors(newErrors)
-        // setStep((prev) => prev + 1)
+        setStep((prev) => prev + 1)
+        // console.log(newErrors)
     }
+    // console.log(errors)
 
     const returnPrevStep = () => {
         setStep((prev) => prev - 1)
     }
-    console.log(formValue)
+    // console.log(im)
+    // console.log(formValue)
     return (
         <div className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
             {/* form  */}
@@ -49,10 +74,18 @@ export default function StepThree({ setStep }) {
                     <div className="flex flex-col gap-[5px]">
                         <label htmlFor="profilePicture">Date of birth *</label>
                         <input
+                           
                             id="profilePicture"
+                            accept="image/*"
+                            onChange={imageChange}
                             type="file"
-                            className="border w-[100%] h-[240px] bg-[#7F7F800D] rounded-lg px-[16px]"
+                            className="border w-[100%] h-[240px] bg-[] rounded-lg px-[16px] opacity-0 z-20"
                         />
+                        <div className="w-[420px] h-[240px] rounded-lg bg-[whitesmoke] absolute flex justify-center items-center"> 
+                            <p>Browse or Drop Image</p>
+                        {formValue.profilePicture && <img className="absolute w-[100%] h-[100%]" src={URL.createObjectURL(formValue.profilePicture)} />}
+                        </div>
+                        {errors.profilePicture && <p>{errors.profilePicture}</p>}
                     </div>
 
                 </div>
@@ -69,8 +102,5 @@ export default function StepThree({ setStep }) {
                 </button>
             </div>
         </div>
-
-
     );
-
 }

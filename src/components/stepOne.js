@@ -1,7 +1,7 @@
 'use client'
 import RightArrow from "@/icon/right-arrow";
 import Header from "@/components/header";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function StepOne({setStep}) {
     // const [firstNameValue, setFirstNameValue] = useState("")
@@ -11,8 +11,12 @@ export default function StepOne({setStep}) {
 
     function firstNameChange(e) {
         setFormValue({ ...formValue, firstName: e.target.value })
+        localStorage.setItem("firstNameLocal", formValue.firstName)
         // console.log(`first name value: ${formValue.firstName}`)
+        let firstName = localStorage.getItem("firstNameLocal" )
+        console.log(firstName)
     }
+    // console.log("this" + formValue.firstName)
 
     function lastNameChange(e) {
         setFormValue({ ...formValue, lastName: e.target.value })
@@ -61,7 +65,9 @@ export default function StepOne({setStep}) {
                                 id="firstName"
                                 onChange={firstNameChange}
                                 className={`border w-[100%] h-[40px] rounded-lg ${errors.firstName ? "border-red-500" : ""}`}
-                                placeholder="First name" />
+                                placeholder="First name" 
+                                
+                                />
                             {errors.firstName && <p className="text-[red]">{errors.firstName}</p>}
                         </div>
                         <div className="flex flex-col gap-[5px]">
