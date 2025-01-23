@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import XButton from "@/icon/X-button";
 export default function StepThree({ setStep }) {
 
-    const [formValue, setFormValue] = useState({
-
+    const [formValue, setFormValue] = useState(()=>{
+    // return JSON.parse(localStorage.getItem("pageThreeLocaleStorage"))
     })
     const [errors, setErrors] = useState({})
 
@@ -56,10 +56,10 @@ export default function StepThree({ setStep }) {
     // console.log(formValue)
 
     useEffect(() => {
-        if (formValue.dateBirth) {
-            localStorage.setItem("dateBirthLocal", formValue.dateBirth);
+        if (formValue?.dateBirth) {
+            localStorage.setItem("dateBirthLocal", formValue?.dateBirth);
         }
-    }, [formValue.dateBirth]);
+    }, [formValue?.dateBirth]);
 
     useEffect(() => {
         const storedData = {
@@ -68,6 +68,17 @@ export default function StepThree({ setStep }) {
         setFormValue((prev) => ({ ...prev, ...storedData }));
         // console.log(storedData)
     }, []);
+
+    // useEffect(()=>{
+    //     const storedData = JSON.parse(localStorage.getItem("pageThreeLocaleStorage"))
+    //     setFormValue((prev) => ({...prev, ...storedData}))
+        
+
+    // })
+
+    // useEffect(()=>{
+    //    localStorage.setItem("pageThreeLocaleStorage", JSON.stringify(formValue?.dateBirth))
+    // },[formValue?.dateBirth])
 
     const removeProfile = () => {
         setFormValue({ ...formValue, profilePicture: null })
@@ -83,7 +94,7 @@ export default function StepThree({ setStep }) {
                     <div className="flex flex-col gap-[5px]">
                         <label htmlFor="dateBirth">Date of birth <span className="text-red-500">*</span></label>
                         <input
-                            value={formValue.dateBirth || ""}
+                            value={formValue?.dateBirth || ""}
                             id="dateBirth"
                             type="date"
                             onChange={dateBirthChange}
@@ -96,7 +107,8 @@ export default function StepThree({ setStep }) {
                     <div className="flex flex-col gap-[5px]">
                         <label htmlFor="profilePicture">
                             Profile picture <span className="text-red-500">*</span>
-                        </label>                        <input
+                        </label>
+                        <input
                             id="profilePicture"
                             accept="image/*"
                             onChange={imageChange}
@@ -105,14 +117,14 @@ export default function StepThree({ setStep }) {
                         />
                         <div className="w-[420px] h-[240px] rounded-lg bg-[whitesmoke] flex justify-center items-center relative">
                             <p>Browse or Drop Image</p>
-                            {formValue.profilePicture && (
+                            {formValue?.profilePicture && (
                                 <div className=" absolute w-[100%] z-20 h-[100%] object-cover rounded-lg">
                                     <img
                                         className="w-[100%] h-[100%]  object-cover rounded-lg"
                                         src={URL.createObjectURL(formValue.profilePicture)}
                                         alt="Preview"
                                     />
-                                    <button onClick={removeProfile} className="absolute mt-[-225px] ml-[380px]"><XButton/></button>
+                                    <button onClick={removeProfile} className="absolute mt-[-225px] ml-[380px]"><XButton /></button>
                                 </div>
                             )}
                         </div>

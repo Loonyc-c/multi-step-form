@@ -3,7 +3,9 @@ import RightArrow from "@/icon/right-arrow";
 import { useEffect, useState } from "react";
 export default function StepTwo({setStep}) {
 
-    const [formValue, setFormValue] = useState({})
+    const [formValue, setFormValue] = useState(()=>{
+        return JSON.parse(localStorage.getItem("stepTwolocalStorage"))
+    })
     const [errors, setErrors] = useState({})
     
     function emailChange(e) {
@@ -40,7 +42,7 @@ export default function StepTwo({setStep}) {
             newErrors.email = "Зөв мэйл хаяг оруулна уу !"
         }
      
-        if (!phoneNumberValue ){
+        if (!phoneNumberValue  ){
             newErrors.phoneNumber = "Утасны дугаараа оруулна уу !"
         } else if (!phoneNumberRegex.test(phoneNumberValue)){
             newErrors.phoneNumber = "Зөв утасны дугаараа оруулна уу !"
@@ -65,32 +67,35 @@ export default function StepTwo({setStep}) {
         setStep((prev)=> prev -1)
     }
 
-    useEffect(()=>{
-        if(formValue.email){
-            localStorage.setItem("emailLocal", formValue.email)
-        }
-        if (formValue.phoneNumber) {
-            localStorage.setItem("phoneNumberLocal", formValue.phoneNumber);
-        }
-        if(formValue.password){
-            localStorage.setItem("passwordLocal", formValue.password)
-        }
-        if(formValue.confirmPassword){
-            localStorage.setItem("confirmPasswordLocal", formValue.confirmPassword)
-        }
-    },[formValue]);
+    // useEffect(()=>{
+    //     if(formValue.email){
+    //         localStorage.setItem("emailLocal", formValue.email)
+    //     }
+    //     if (formValue.phoneNumber) {
+    //         localStorage.setItem("phoneNumberLocal", formValue.phoneNumber);
+    //     }
+    //     if(formValue.password){
+    //         localStorage.setItem("passwordLocal", formValue.password)
+    //     }
+    //     if(formValue.confirmPassword){
+    //         localStorage.setItem("confirmPasswordLocal", formValue.confirmPassword)
+    //     }
+    // },[formValue]);
+
+    // useEffect(()=>{
+    //     const storedData = {
+    //         email: localStorage.getItem("emailLocal") || "",
+    //         phoneNumber: localStorage.getItem("phoneNumberLocal") || "",
+    //         password: localStorage.getItem("passwordLocal") || "",
+    //         confirmPassword: localStorage.getItem("confirmPasswordLocal") || ""
+    //     }
+    //     setFormValue(storedData)
+    //     // console.log(storedData)
+    // },[])
 
     useEffect(()=>{
-        const storedData = {
-            email: localStorage.getItem("emailLocal") || "",
-            phoneNumber: localStorage.getItem("phoneNumberLocal") || "",
-            password: localStorage.getItem("passwordLocal") || "",
-            confirmPassword: localStorage.getItem("confirmPasswordLocal") || ""
-        }
-        setFormValue(storedData)
-        // console.log(storedData)
-    },[])
-
+        localStorage.setItem("stepTwolocalStorage", JSON.stringify(formValue))
+    },[formValue])
 
 
     return (
@@ -104,7 +109,7 @@ export default function StepTwo({setStep}) {
                         <label htmlFor="email">Email <span className="text-red-500">*</span></label>
                         <input
                             id="email"
-                            value={formValue.email || ""}
+                            value={formValue?.email || ""}
                             placeholder="Your email"
                             onChange={emailChange}
                             className={`border w-[100%] h-[40px] rounded-lg ${errors.email ? "border-red-500" : ""}`}
@@ -117,7 +122,7 @@ export default function StepTwo({setStep}) {
                         <input
                             placeholder="Your phone number"
                             type="number"
-                            value={formValue.phoneNumber || ""}
+                            value={formValue?.phoneNumber || ""}
                             id="phone"
                             onChange={phoneNumberChange}
                             className={`border w-[100%] h-[40px] rounded-lg ${errors.phoneNumber ? "border-red-500" : ""}`}
@@ -130,7 +135,7 @@ export default function StepTwo({setStep}) {
                         <input
                             placeholder="Your password"
                             id="password"
-                            value={formValue.password || ""}
+                            value={formValue?.password || ""}
                             type="password"
                             onChange={passwordChange}
                             className={`border w-[100%] h-[40px] rounded-lg ${errors.password ? "border-red-500" : ""}`}
@@ -142,7 +147,7 @@ export default function StepTwo({setStep}) {
                         <label htmlFor="Confirm password">Confirm password <span className="text-red-500">*</span></label>
                         <input
                             placeholder="Confirm password"
-                            value={formValue.confirmPassword || ""}
+                            value={formValue?.confirmPassword || ""}
                             id="Confirm password"
                             type="password"
                             onChange={confirmPasswordChange}

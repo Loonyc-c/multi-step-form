@@ -4,11 +4,20 @@ import StepOne from "@/components/stepOne";
 import StepTwo from "@/components/stepTwo";
 import StepThree from "@/components/stepThree";
 import StepFour from "@/components/stepFour";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
   const [step, setStep] = useState(1)
+  console.log(step)
+
+  // useEffect(()=>{
+  //   const localStorage = JSON.getItem(localStorage.getItem("stepStorage"))
+  // },[])
+  // useEffect(()=>{
+  //  localStorage.setItem("stepStorage", JSON.stringify(step))
+  // },[step])
+
     
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[whitesmoke]">
