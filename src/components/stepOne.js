@@ -97,9 +97,6 @@ export default function StepOne({ setStep }) {
         localStorage.setItem("localStorage", JSON.stringify(formValue))
     }, [formValue])
 
-
-
-
     return (
 
         <div className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
