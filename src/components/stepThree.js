@@ -2,6 +2,8 @@ import Header from "./header";
 import RightArrow from "@/icon/right-arrow";
 import { useEffect, useState } from "react";
 import XButton from "@/icon/X-button";
+import { motion } from "framer-motion";
+
 export default function StepThree({ setStep }) {
 
     const [formValue, setFormValue] = useState(()=>{
@@ -85,7 +87,9 @@ export default function StepThree({ setStep }) {
     }
 
     return (
-        <div className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
+        <motion.div 
+        animate={{ x: [0, -100, 0] }}
+        className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
             {/* form  */}
             <div className="flex flex-col gap-[40px]">
                 <Header />
@@ -146,6 +150,6 @@ export default function StepThree({ setStep }) {
                     Continue 3/3 <RightArrow />
                 </button>
             </div>
-        </div>
+        </motion.div>
     );
 }

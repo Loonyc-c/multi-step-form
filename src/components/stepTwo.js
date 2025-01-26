@@ -1,6 +1,7 @@
 import Header from "./header";
 import RightArrow from "@/icon/right-arrow";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 export default function StepTwo({setStep}) {
 
     const [formValue, setFormValue] = useState(()=>{
@@ -26,17 +27,18 @@ export default function StepTwo({setStep}) {
         // console.log(formValue.confirmPassword)
     }
 
+
     const inputChecker = () => {
         const newErrors = {}
-        const emailValue = formValue.email
-        const phoneNumberValue = formValue.phoneNumber
-        const password = formValue.password
-        const confirmPassword = formValue.confirmPassword
+        const emailValue = formValue?.email
+        const phoneNumberValue = formValue?.phoneNumber
+        const password = formValue?.password
+        const confirmPassword = formValue?.confirmPassword
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         const phoneNumberRegex = /^(8\d{7}|9\d{7}|7\d{7}|6\d{7})$/
 
 
-        if (!emailValue ) {
+        if (!emailValue) {
             newErrors.email = "Мэйл хаягаа оруулна уу !"
         } else if (!emailRegex.test(emailValue)){
             newErrors.email = "Зөв мэйл хаяг оруулна уу !"
@@ -99,7 +101,13 @@ export default function StepTwo({setStep}) {
 
 
     return (
-        <div className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
+        
+        <motion.div 
+        animate={{ x: [0, -100, 0] }}
+   
+        className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
+             
+
             {/* form  */}
             <div className="flex flex-col gap-[40px]">
                 <Header />
@@ -166,7 +174,7 @@ export default function StepTwo({setStep}) {
                     Continue 2/3 <RightArrow />
                 </button>
             </div>
-        </div>
+        </motion.div>
 
 
     );

@@ -1,6 +1,7 @@
 'use client'
 import RightArrow from "@/icon/right-arrow";
 import Header from "@/components/header";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function StepOne({ setStep }) {
@@ -99,7 +100,9 @@ export default function StepOne({ setStep }) {
 
     return (
 
-        <div className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
+        <motion.div 
+        animate={{ x: [0, -100, 0] }}
+        className="w-[480px] p-[32px] bg-[white] flex flex-col gap-[100px] ">
             {/* form  */}
             <div className="flex flex-col gap-[40px]">
                 <Header />
@@ -148,7 +151,7 @@ export default function StepOne({ setStep }) {
                     Continue 1/3 <RightArrow />
                 </button>
             </div>
-        </div>
+        </motion.div>
 
 
     );
