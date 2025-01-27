@@ -60,19 +60,20 @@ export default function StepThree({ setStep }) {
 
     useEffect(() => {
         if(typeof window !== 'undefined')
-        return
+        
         if (formValue?.dateBirth) {
             localStorage.setItem("dateBirthLocal", formValue?.dateBirth);
         }
     }, [formValue?.dateBirth]);
 
     useEffect(() => {
-        if(typeof window !== 'undefined')
-        return
-        const storedData = {
-            dateBirth: localStorage.getItem("dateBirthLocal") || "",
-        };
-        setFormValue((prev) => ({ ...prev, ...storedData }));
+        if(typeof window !== 'undefined') {
+            const storedData = {
+                dateBirth: localStorage.getItem("dateBirthLocal") || "",
+            };
+            setFormValue((prev) => ({ ...prev, ...storedData }))
+        }
+        ;
         // console.log(storedData)
     }, []);
 

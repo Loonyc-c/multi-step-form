@@ -97,7 +97,6 @@ export default function StepOne({ setStep }) {
 
     useEffect(() => {
         if(typeof window !== 'undefined')
-            return
         localStorage.setItem("localStorage", JSON.stringify(formValue))
     }, [formValue])
 
