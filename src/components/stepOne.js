@@ -8,6 +8,7 @@ export default function StepOne({ setStep }) {
 
     const [errors, setErrors] = useState({})
     const [formValue, setFormValue] = useState(() => {
+        if(typeof window !== 'undefined')
         return JSON.parse(localStorage.getItem("localStorage"))
     })
 
@@ -95,6 +96,8 @@ export default function StepOne({ setStep }) {
     // },[])
 
     useEffect(() => {
+        if(typeof window !== 'undefined')
+            return
         localStorage.setItem("localStorage", JSON.stringify(formValue))
     }, [formValue])
 

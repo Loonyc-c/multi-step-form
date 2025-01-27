@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 export default function StepThree({ setStep }) {
 
     const [formValue, setFormValue] = useState(()=>{
+    //     if(typeof window !== 'undefined')å
     // return JSON.parse(localStorage.getItem("pageThreeLocaleStorage"))
     })
     const [errors, setErrors] = useState({})
@@ -58,12 +59,16 @@ export default function StepThree({ setStep }) {
     // console.log(formValue)
 
     useEffect(() => {
+        if(typeof window !== 'undefined')
+        return
         if (formValue?.dateBirth) {
             localStorage.setItem("dateBirthLocal", formValue?.dateBirth);
         }
     }, [formValue?.dateBirth]);
 
     useEffect(() => {
+        if(typeof window !== 'undefined')
+        return
         const storedData = {
             dateBirth: localStorage.getItem("dateBirthLocal") || "",
         };

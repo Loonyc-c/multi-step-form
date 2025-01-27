@@ -28,3 +28,4 @@ export default function Home() {
     </div>
   );
 }
+// if(typeof window !== "undefined")

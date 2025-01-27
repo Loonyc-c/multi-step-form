@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 export default function StepTwo({setStep}) {
 
     const [formValue, setFormValue] = useState(()=>{
+        if(typeof window !== 'undefined')
         return JSON.parse(localStorage.getItem("stepTwolocalStorage"))
     })
     const [errors, setErrors] = useState({})
@@ -96,6 +97,7 @@ export default function StepTwo({setStep}) {
     // },[])
 
     useEffect(()=>{
+        if(typeof window !== 'undefined')
         localStorage.setItem("stepTwolocalStorage", JSON.stringify(formValue))
     },[formValue])
 
